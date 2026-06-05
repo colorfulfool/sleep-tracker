@@ -3,6 +3,8 @@
  * @return {Generator<string[], void, void>}
  **/
 export default function* everyDay(rows) {
+  console.log("everyDay", rows)
+
   let currentDate;
   while (true) {
     const currentRow = rows.shift()?.split(',');
@@ -12,15 +14,18 @@ export default function* everyDay(rows) {
     }
 
     if (!currentDate) {
-      currentDate = new Date(currentRow[0]);
+      const d = new Date(currentRow[0]);
+      currentDate = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), 0));
     }
 
     while (new Date(currentRow[0]).getTime() - currentDate.getTime() > 1000 * 60 * 60 * 24) {
-      currentDate.setDate(currentDate.getDate() + 1);
+      currentDate.setUTCDate(currentDate.getUTCDate() + 1);
+      console.log("yield", [currentDate.toISOString().split('T')[0], '', '']);
       yield [currentDate.toISOString().split('T')[0], '', ''];
     }
 
     currentDate = new Date(currentRow[0]);
+    console.log("yield", currentRow);
     yield currentRow;
   }
 }

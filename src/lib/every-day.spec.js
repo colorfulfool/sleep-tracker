@@ -18,12 +18,12 @@ describe('everyDay', () => {
 
   it('adds missing first day', () => {
     const gen = everyDay([
-      "2026-03-02,6:26,16:14",
-      "2026-03-03,7:24,12:55",
+      "2026-05-02,0:41,10:10",
+      "2026-05-03,1:41,12:14",
     ]);
-    expect(gen.next().value).toEqual(["2026-03-01", "", ""])
-    expect(gen.next().value).toEqual(["2026-03-02", "6:26", "16:14"])
-    expect(gen.next().value).toEqual(["2026-03-03", "7:24", "12:55"])
+    expect(gen.next().value).toEqual(["2026-05-01", "", ""])
+    expect(gen.next().value).toEqual(["2026-05-02", "0:41", "10:10"])
+    expect(gen.next().value).toEqual(["2026-05-03", "1:41", "12:14"])
     expect(gen.next().value).toBeFalsy()
   });
 });
