@@ -39,8 +39,6 @@
 		{#each generator(rows) as row}
 			<tr>
 				<td>{row[0]}</td>
-				<td>{row[1]}</td>
-				<td>{row[2]}</td>
 				{#if row[1] && row[2]}
 					<td><Graph startTime={row[1]} endTime={row[2]} /></td>
 				{/if}
@@ -52,5 +50,6 @@
 <style>
 	table td {
 		padding: 8px;
+		font-family: sans-serif;
 	}
 </style>

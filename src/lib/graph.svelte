@@ -53,9 +53,18 @@
 <div class="container">
 	<div class="duration" style={`left: ${left}px; right: ${right}px;`}></div>
 	<div class="midnight"></div>
+	<div class="small" style={`left: ${left}px`}>{start.toString()}</div>
+	<div class="small" style={`right: ${right}px`}>{end.toString()}</div>
 </div>
 
 <style>
+	.small {
+		font-family: sans-serif;
+		position: absolute;
+		font-size: 11px;
+		bottom: -14px;
+	}
+
 	.container {
 		width: 240px;
 		height: 18px;
