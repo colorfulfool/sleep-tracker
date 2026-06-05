@@ -1,4 +1,10 @@
 <script module>
+	/** @param {number} num */
+	function pad(num) {
+		const str = num.toString();
+		return Array.from({ length: 2 - str.length }, () => '0').join() + str;
+	}
+
 	class Time {
 		/** @param {string} time */
 		static fromString(time) {
@@ -30,7 +36,7 @@
 		}
 
 		toString() {
-			return `${this.hours}:${this.minutes}`;
+			return `${pad(this.hours)}:${pad(this.minutes)}`;
 		}
 	}
 </script>
@@ -58,16 +64,9 @@
 </div>
 
 <style>
-	.small {
-		font-family: sans-serif;
-		position: absolute;
-		font-size: 11px;
-		bottom: -14px;
-	}
-
 	.container {
 		width: 240px;
-		height: 18px;
+		height: 16px;
 		background: lightgray;
 		position: relative;
 	}
@@ -85,7 +84,14 @@
 		top: -2px;
 		bottom: -2px;
 		left: 60px;
-		right: 179px;
+		right: 178px;
 		z-index: 10;
+	}
+
+	.small {
+		font-family: sans-serif;
+		position: absolute;
+		font-size: 11px;
+		bottom: -14px;
 	}
 </style>
