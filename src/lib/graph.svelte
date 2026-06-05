@@ -13,13 +13,28 @@
 
 	let left = $derived((WIDTH_PX / WIDTH_HR) * (start.wrapped().toHours() - SHIFT_HR));
 	let right = $derived(WIDTH_PX - (WIDTH_PX / WIDTH_HR) * (end.wrapped(true).toHours() - SHIFT_HR));
+
+	const GAP = 8;
+
+	let labelShift = $derived.by(() => {
+		const filledWidth = WIDTH_PX - left - right;
+		const missing = filledWidth - 27 * 2 - GAP;
+		if (missing < 0) {
+			return Math.abs(missing) / 2;
+		}
+		return 0;
+	});
 </script>
 
 <div class="container">
 	<div class="duration" style={`left: ${left}px; right: ${right}px;`}></div>
 	<div class="midnight"></div>
-	<div class="small" style={`left: ${left}px`}>{start.toString()}</div>
-	<div class="small" style={`right: ${right}px`}>{end.toString()}</div>
+	<div class="small" style={`left: ${left}px; transform: translateX(-${labelShift}px)`}>
+		{start.toString()}
+	</div>
+	<div class="small" style={`right: ${right}px; transform: translateX(${labelShift}px)`}>
+		{end.toString()}
+	</div>
 </div>
 
 <style>

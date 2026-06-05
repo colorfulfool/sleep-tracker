@@ -11,6 +11,13 @@ export default class Time {
     return new Time(hours, minutes);
   }
 
+  /** @param {number} total */
+  static fromMinutes(total) {
+    const hours = Math.ceil(total / 60)
+    const minutes = total % 60
+    return new Time(hours, minutes);
+  }
+
   /**
    * @param {number} hours
    * @param {number} minutes
