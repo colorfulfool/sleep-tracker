@@ -1,4 +1,5 @@
 <script>
+	import { linear } from './scaling-functions';
 	import Time from './time';
 
 	/** @type {{ startTime: string, endTime: string }} */
@@ -26,10 +27,21 @@
 		}
 		return 0;
 	});
+
+	const color = $derived.by(() => {
+		const duration = (end.wrapped(true).toMinutes() - start.wrapped().toMinutes()) / 60;
+		const hue = linear(duration, 8, 120, 6, 0);
+		return `hsl(${hue} 70% 50%)`;
+	});
 </script>
 
 <div class="container">
-	<div class="duration" style={`left: ${left}px; right: ${right}px;`}></div>
+	<div
+		data-duration={(end.wrapped(true).toMinutes() - start.wrapped().toMinutes()) / 60}
+		data-color={color}
+		class="duration"
+		style={`left: ${left}px; right: ${right}px; background: ${color}; `}
+	></div>
 	<div class="midnight"></div>
 	<div class="small" style={`left: ${left}px; transform: translateX(-${labelShift}px)`}>
 		{start.toString()}
@@ -43,7 +55,7 @@
 	.container {
 		width: 240px;
 		height: 16px;
-		background: lightgray;
+		background: #dfdfdf;
 		position: relative;
 	}
 
@@ -51,7 +63,6 @@
 		position: absolute;
 		top: 0px;
 		bottom: 0px;
-		background: darkgrey;
 	}
 
 	.midnight {

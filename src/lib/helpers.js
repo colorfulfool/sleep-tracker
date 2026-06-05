@@ -2,7 +2,7 @@
 export async function readResponse(url) {
   const resp = await fetch(url, { cache: 'no-store' });
   const text = await resp.text();
-  return text.split('\n');
+  return text.split('\n').filter(row => row.length)
 }
 
 /**

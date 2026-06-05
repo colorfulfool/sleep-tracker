@@ -20,6 +20,10 @@
 </table>
 
 <style>
+	table {
+		margin-bottom: 16px;
+	}
+
 	table td {
 		padding: 8px;
 		font-family: sans-serif;
