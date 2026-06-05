@@ -14,7 +14,7 @@
 <style>
 	div {
 		display: flex;
-		gap: 8px;
+		gap: 16px;
 		align-items: start;
 	}
 </style>
