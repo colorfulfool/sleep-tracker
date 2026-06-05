@@ -33,7 +33,7 @@
 
 <table>
 	<tbody>
-		{#each everyDay([...data]) as row}
+		{#each everyDay(data) as row}
 			<tr>
 				<td>{row[0]}</td>
 				{#if row[1] && row[2]}

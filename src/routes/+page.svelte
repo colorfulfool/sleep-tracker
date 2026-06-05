@@ -1,17 +1,13 @@
 <script module>
+	import { readResponse, divideBy } from '$lib/helpers';
 	import Table from '$lib/table.svelte';
-
-	/** @param {string} url */
-	async function readResponse(url) {
-		const resp = await fetch(url, { cache: 'no-store' });
-		const text = await resp.text();
-		return text.split('\n');
-	}
 </script>
 
 <div style={`flex-direction: ${'column'}`}>
 	{#await readResponse('/data.csv') then data}
-		<Table {data} />
+		{#each divideBy(data, (row) => row.match(/-\d{2}-/)?.[0] ?? '') as monthData}
+			<Table data={monthData} />
+		{/each}
 	{/await}
 </div>
 
