@@ -1,19 +1,15 @@
 <script>
 	import Graph from '$lib/graph.svelte';
 
-	const rows = [
-		['2026-01-01', '23:05', '9:20'],
-		['2026-01-04', '02:46', '12:01'],
-		['2026-01-05', '22:10', '10:35']
-	];
+	const rows = ['2026-01-01,23:05,9:20', '2026-01-04,02:46,12:01', '2026-01-05,22:10,10:35'];
 
 	/**
-	 * @param {Array<Array<string>>} rows
+	 * @param {Array<string>} rows
 	 */
 	function* generator(rows) {
 		let currentDate;
 		while (true) {
-			const currentRow = rows.shift();
+			const currentRow = rows.shift()?.split(',');
 
 			if (!currentRow) {
 				return;
