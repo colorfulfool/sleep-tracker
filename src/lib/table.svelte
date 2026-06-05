@@ -35,7 +35,7 @@
 	<tbody>
 		{#each everyDay(data) as row}
 			<tr>
-				<td>{row[0]}</td>
+				<td style="white-space: nowrap;">{row[0]}</td>
 				{#if row[1] && row[2]}
 					<td><Graph startTime={row[1]} endTime={row[2]} /></td>
 				{/if}
