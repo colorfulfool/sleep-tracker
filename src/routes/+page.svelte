@@ -2,9 +2,9 @@
 	import Graph from '$lib/graph.svelte';
 
 	const rows = [
-		['2026-01-01', '23', '9'],
-		['2026-01-04', '02', '12'],
-		['2026-01-05', '22', '10']
+		['2026-01-01', '23:05', '9:20'],
+		['2026-01-04', '02:46', '12:01'],
+		['2026-01-05', '22:10', '10:35']
 	];
 
 	/**
@@ -28,6 +28,7 @@
 				yield [currentDate.toISOString().split('T')[0], '', ''];
 			}
 
+			currentDate = new Date(currentRow[0]);
 			yield currentRow;
 		}
 	}
@@ -41,7 +42,7 @@
 				<td>{row[1]}</td>
 				<td>{row[2]}</td>
 				{#if row[1] && row[2]}
-					<td><Graph start={row[1]} end={row[2]} /></td>
+					<td><Graph startTime={row[1]} endTime={row[2]} /></td>
 				{/if}
 			</tr>
 		{/each}
