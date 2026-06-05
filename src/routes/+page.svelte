@@ -1,8 +1,9 @@
-<script>
+<script module>
 	import Graph from '$lib/graph.svelte';
+	import { onMount } from 'svelte';
 
 	async function readResponse(url) {
-		const resp = await fetch(url);
+		const resp = await fetch(url, { cache: 'no-store' });
 		const text = await resp.text();
 		return text.split('\n');
 	}
@@ -34,10 +35,33 @@
 	}
 </script>
 
+<script>
+	/** @type {string[] | undefined} */
+	let data = $state(undefined);
+
+	const fetchData = async () => {
+		data = await readResponse('/data.csv');
+	};
+
+	const onVisible = () => {
+		if (document.visibilityState === 'visible') fetchData();
+	};
+
+	onMount(() => {
+		fetchData();
+		document.addEventListener('visibilitychange', onVisible);
+		window.addEventListener('focus', fetchData);
+		return () => {
+			document.removeEventListener('visibilitychange', onVisible);
+			window.removeEventListener('focus', fetchData);
+		};
+	});
+</script>
+
 <table>
 	<tbody>
-		{#await readResponse('/data.csv') then data}
-			{#each generator(data) as row}
+		{#if data}
+			{#each generator([...data]) as row}
 				<tr>
 					<td>{row[0]}</td>
 					{#if row[1] && row[2]}
@@ -45,7 +69,7 @@
 					{/if}
 				</tr>
 			{/each}
-		{/await}
+		{/if}
 	</tbody>
 </table>
 
