@@ -8,11 +8,13 @@
 	let end = $derived(Time.fromString(endTime));
 
 	const WIDTH_PX = 240;
-	const WIDTH_HR = 24;
-	const SHIFT_HR = 18;
+	const WIDTH_MIN = 24 * 60;
+	const SHIFT_MIN = 18 * 60;
 
-	let left = $derived((WIDTH_PX / WIDTH_HR) * (start.wrapped().toHours() - SHIFT_HR));
-	let right = $derived(WIDTH_PX - (WIDTH_PX / WIDTH_HR) * (end.wrapped(true).toHours() - SHIFT_HR));
+	let left = $derived((WIDTH_PX / WIDTH_MIN) * (start.wrapped().toMinutes() - SHIFT_MIN));
+	let right = $derived(
+		WIDTH_PX - (WIDTH_PX / WIDTH_MIN) * (end.wrapped(true).toMinutes() - SHIFT_MIN)
+	);
 
 	const GAP = 8;
 
