@@ -1,7 +1,11 @@
 <script>
 	import Graph from '$lib/graph.svelte';
 
-	const rows = ['2026-01-01,23:05,9:20', '2026-01-04,02:46,12:01', '2026-01-05,22:10,10:35'];
+	async function readResponse(url) {
+		const resp = await fetch(url);
+		const text = await resp.text();
+		return text.split('\n');
+	}
 
 	/**
 	 * @param {Array<string>} rows
@@ -32,14 +36,16 @@
 
 <table>
 	<tbody>
-		{#each generator(rows) as row}
-			<tr>
-				<td>{row[0]}</td>
-				{#if row[1] && row[2]}
-					<td><Graph startTime={row[1]} endTime={row[2]} /></td>
-				{/if}
-			</tr>
-		{/each}
+		{#await readResponse('/data.csv') then data}
+			{#each generator(data) as row}
+				<tr>
+					<td>{row[0]}</td>
+					{#if row[1] && row[2]}
+						<td><Graph startTime={row[1]} endTime={row[2]} /></td>
+					{/if}
+				</tr>
+			{/each}
+		{/await}
 	</tbody>
 </table>
 
