@@ -25,6 +25,7 @@
 		display: flex;
 		gap: 16px;
 		align-items: start;
+		padding-bottom: 16px;
 	}
 
 	.toolbar {
