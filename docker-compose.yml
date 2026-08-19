@@ -4,6 +4,8 @@ services:
   app:
     build: .
     container_name: sleep-tracker # The URL will automatically be http://sleep-tracker.localhost
+    volumes:
+      - ./static/data.csv:/app/static/data.csv # Serve the local data.csv live
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.app.loadbalancer.server.port=3000" # Change to match your app's internal port
