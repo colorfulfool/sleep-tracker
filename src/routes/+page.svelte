@@ -16,7 +16,7 @@
 <div class="toolbar">
 	<label>
 		<input type="checkbox" bind:checked={isSideBySide} />
-		side-by-side
+		месяцы в ряд
 	</label>
 </div>
 
