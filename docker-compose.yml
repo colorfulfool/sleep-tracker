@@ -11,6 +11,7 @@ services:
       - "traefik.http.services.sleep-tracker.loadbalancer.server.port=3000" # Change to match your app's internal port
       
       - "lazyloader=true"
+      - "lazyloader.hosts=sleep-tracker.localhost" # Maps the hostname so lazyload can wake the container
       - "lazyloader.stopdelay=5m" # Shuts container down after 5 mins of zero web traffic
     networks:
       - webproxy
