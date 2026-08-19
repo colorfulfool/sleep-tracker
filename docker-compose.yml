@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    container_name: sleep-tracker # The URL will automatically be http://sleep-tracker.localhost
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.app.loadbalancer.server.port=3000" # Change to match your app's internal port
+      
+      - "lazyloader=true"
+      - "lazyloader.stopdelay=5m" # Shuts container down after 5 mins of zero web traffic
+    networks:
+      - webproxy
+
+networks:
+  webproxy:
+    external: true
